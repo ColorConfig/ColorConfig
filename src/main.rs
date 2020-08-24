@@ -1,3 +1,6 @@
+use std::env;
+
 fn main() {
-    println!("Hello, world!");
+    let filename = env::args().nth(1).expect("no filename given");
+    println!("filename: {}", filename);
 }
