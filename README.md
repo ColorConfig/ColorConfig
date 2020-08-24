@@ -1,2 +1,2 @@
-# solongos
+# solongo
 Terminal colorscheme generator
