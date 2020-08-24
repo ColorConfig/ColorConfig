@@ -1,0 +1,2 @@
+# solongos
+Terminal colorscheme generator
