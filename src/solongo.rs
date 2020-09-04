@@ -5,6 +5,20 @@ pub struct Solongo {
     metadata: Metadata,
     colors: Colors,
 }
+
+impl Solongo {
+    pub fn to_json(&self) -> String {
+        match serde_json::to_string_pretty(&self) {
+            Ok(json) => {
+                json
+            },
+            Err(_err) => {
+                panic!("Failed to convert to JSON")
+            }
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize)]
 struct Colors {
     primary: PrimaryColors,
