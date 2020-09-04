@@ -1,4 +1,7 @@
+extern crate serde_with;
+
 use serde::{Serialize, Deserialize};
+use serde_with::with_prefix;
 
 #[derive(Serialize, Deserialize)]
 pub struct Solongo {
@@ -7,13 +10,19 @@ pub struct Solongo {
 }
 
 impl Solongo {
-    pub fn to_json(&self) -> String {
-        match serde_json::to_string_pretty(&self) {
-            Ok(json) => {
-                json
-            },
-            Err(_err) => {
-                panic!("Failed to convert to JSON")
+    pub fn to_vscode(self) -> VscodeIntergratedTerminal {
+        VscodeIntergratedTerminal {
+            terminal: VscodeIntergratedTerminalTerminal {
+                background: self.colors.primary.background,
+                foreground: self.colors.primary.foreground,
+                ansi_black: self.colors.normal.black,
+                ansi_red: self.colors.normal.red,
+                ansi_green: self.colors.normal.green,
+                ansi_yellow: self.colors.normal.yellow,
+                ansi_blue: self.colors.normal.blue,
+                ansi_magenta: self.colors.normal.magenta,
+                ansi_cyan: self.colors.normal.cyan,
+                ansi_white: self.colors.normal.white,
             }
         }
     }
@@ -50,4 +59,27 @@ struct AnsiColors {
     magenta: String,
     cyan: String,
     white: String,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct VscodeIntergratedTerminal {
+    #[serde(flatten, with = "terminal")]
+    terminal: VscodeIntergratedTerminalTerminal
+}
+
+with_prefix!(terminal "terminal.");
+
+#[derive(Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct VscodeIntergratedTerminalTerminal {
+    background: String,
+    foreground: String,
+    ansi_black: String,
+    ansi_red: String,
+    ansi_green: String,
+    ansi_yellow: String,
+    ansi_blue: String,
+    ansi_magenta: String,
+    ansi_cyan: String,
+    ansi_white: String,
 }

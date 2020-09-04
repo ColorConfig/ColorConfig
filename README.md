@@ -3,6 +3,7 @@
 Terminal colorscheme generator
 
 ## Support
+
 <table>
   <tr>
     <td>iTerm</td>
@@ -30,7 +31,7 @@ Terminal colorscheme generator
   </tr>
   <tr>
     <td>VS Code integrated terminal</td>
-    <td></td>
+    <td>✅</td>
   </tr>
   <tr>
     <td>Hyper</td>
