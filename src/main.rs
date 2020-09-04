@@ -2,45 +2,9 @@ use std::env;
 use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
-use serde::{Serialize, Deserialize};
 
-#[derive(Serialize, Deserialize)]
-pub struct Solongo {
-    metadata: Metadata,
-    colors: Colors,
-}
-#[derive(Serialize, Deserialize)]
-pub struct Colors {
-    primary: PrimaryColors,
-    normal: AnsiColors,
-    bright: AnsiColors,
-}
-
-#[derive(Serialize, Deserialize)]
-struct Metadata {
-    name: String,
-    version: String,
-    author: String,
-    website: Option<String>,
-}
-
-#[derive(Serialize, Deserialize)]
-struct PrimaryColors {
-    background: String,
-    foreground: String,
-}
-
-#[derive(Serialize, Deserialize)]
-struct AnsiColors {
-    black: String,
-    red: String,
-    green: String,
-    yellow: String,
-    blue: String,
-    magenta: String,
-    cyan: String,
-    white: String,
-}
+mod solongo;
+use solongo::Solongo;
 
 fn main() {
     let filename = env::args().nth(1).expect("no filename given");
@@ -53,6 +17,4 @@ fn main() {
 
     let mut file = File::create(format!("{}.json", &filename)).expect("failed to create file");
     file.write_all(serialized.as_bytes()).expect("failed to write file");
-
-    assert_eq!(content.colors.normal.black, "#13181b");
 }
