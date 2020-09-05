@@ -23,6 +23,14 @@ impl Solongo {
                 ansi_magenta: self.colors.normal.magenta,
                 ansi_cyan: self.colors.normal.cyan,
                 ansi_white: self.colors.normal.white,
+                ansi_bright_black: self.colors.bright.black,
+                ansi_bright_red: self.colors.bright.red,
+                ansi_bright_green: self.colors.bright.green,
+                ansi_bright_yellow: self.colors.bright.yellow,
+                ansi_bright_blue: self.colors.bright.blue,
+                ansi_bright_magenta: self.colors.bright.magenta,
+                ansi_bright_cyan: self.colors.bright.cyan,
+                ansi_bright_white: self.colors.bright.white,
             }
         }
     }
@@ -82,4 +90,12 @@ pub struct VscodeIntergratedTerminalTerminal {
     ansi_magenta: String,
     ansi_cyan: String,
     ansi_white: String,
+    ansi_bright_black: String,
+    ansi_bright_red: String,
+    ansi_bright_green: String,
+    ansi_bright_yellow: String,
+    ansi_bright_blue: String,
+    ansi_bright_magenta: String,
+    ansi_bright_cyan: String,
+    ansi_bright_white: String,
 }
