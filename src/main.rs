@@ -16,16 +16,28 @@ use cli::Cli;
 
 fn main() {
     let args = Cli::from_args();
-    let content = fs::read_to_string(&args.solongo_path)
+
+    let filename = &args.solongo_path
+        .into_os_string()
+        .into_string()
+        .unwrap();
+
+    let content = fs::read_to_string(filename)
         .expect("could not read file");
+
     let content: Solongo = toml::from_str(&content)
         .expect("toml error");
 
     let winterm = WindowsTerminal::from(content);
-    let winterm = serde_json::to_string_pretty(&winterm).unwrap();
+    let winterm = serde_json::to_string_pretty(&winterm)
+        .unwrap();
 
-    let filename =  &args.solongo_path.into_os_string().into_string().unwrap();
-    let mut file = File::create(format!("{}.json", &filename))
-        .expect("failed to create file");
-    file.write_all(winterm.as_bytes()).expect("failed to write file");
+    write_file(&filename, winterm);
 }
+
+fn write_file(filename: &String, content: String) {
+    let mut file = File::create(format!("{}.json", filename))
+        .expect("failed to create file");
+    file.write_all(content.as_bytes())
+        .expect("failed to write file");
+ }
