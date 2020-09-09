@@ -11,7 +11,7 @@ Terminal colorscheme generator
   </tr>
   <tr>
     <td>Windows Terminal</td>
-    <td></td>
+    <td>✅</td>
   </tr>
   <tr>
     <td>Alacritty</td>

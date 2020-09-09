@@ -4,7 +4,7 @@ use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct Solongo {
-    metadata: Metadata,
+    pub metadata: Metadata,
     pub colors: Colors,
 }
 
@@ -16,8 +16,8 @@ pub struct Colors {
 }
 
 #[derive(Serialize, Deserialize)]
-struct Metadata {
-    name: String,
+pub struct Metadata {
+    pub name: String,
     version: String,
     author: String,
     website: Option<String>,
