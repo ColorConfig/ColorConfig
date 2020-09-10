@@ -7,11 +7,13 @@ use structopt::StructOpt;
 mod solongo;
 mod vscode_integrated_terminal;
 mod windows_terminal;
+mod alacritty;
 mod cli;
 
 use solongo::Solongo;
 use vscode_integrated_terminal::VscodeIntegratedTerminal;
 use windows_terminal::WindowsTerminal;
+use alacritty::Alacritty;
 use cli::Cli;
 use cli::Format;
 
@@ -43,6 +45,12 @@ fn main() {
             let winterm = serde_json::to_string_pretty(&winterm)
                 .unwrap();
             write_file(&filename, winterm);
+        }
+        Format::Alacritty => {
+            let alacritty = Alacritty::from(solongo);
+            let alacritty = serde_yaml::to_string(&alacritty)
+                .unwrap();
+            write_file(&filename, alacritty);
         }
     }
 }

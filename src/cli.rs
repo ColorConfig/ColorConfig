@@ -8,6 +8,7 @@ arg_enum! {
     pub enum Format {
         WindowsTerminal,
         VscodeIntegratedTerminal,
+        Alacritty,
     }
 }
 
