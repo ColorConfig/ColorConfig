@@ -13,6 +13,7 @@ use solongo::Solongo;
 use vscode_integrated_terminal::VscodeIntegratedTerminal;
 use windows_terminal::WindowsTerminal;
 use cli::Cli;
+use cli::Format;
 
 fn main() {
     let args = Cli::from_args();
@@ -22,17 +23,28 @@ fn main() {
         .into_string()
         .unwrap();
 
+    let format = &args.format;
+
     let content = fs::read_to_string(filename)
         .expect("could not read file");
 
-    let content: Solongo = toml::from_str(&content)
+    let solongo: Solongo = toml::from_str(&content)
         .expect("toml error");
 
-    let winterm = WindowsTerminal::from(content);
-    let winterm = serde_json::to_string_pretty(&winterm)
-        .unwrap();
-
-    write_file(&filename, winterm);
+    match format {
+        Format::VscodeIntegratedTerminal => {
+            let vscode = VscodeIntegratedTerminal::from(solongo);
+            let vscode = serde_json::to_string_pretty(&vscode)
+                .unwrap();
+            write_file(&filename, vscode);
+        }
+        Format::WindowsTerminal => {
+            let winterm = WindowsTerminal::from(solongo);
+            let winterm = serde_json::to_string_pretty(&winterm)
+                .unwrap();
+            write_file(&filename, winterm);
+        }
+    }
 }
 
 fn write_file(filename: &String, content: String) {
