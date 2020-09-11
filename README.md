@@ -34,7 +34,7 @@ ARGS:
   </tr>
   <tr>
     <td>Alacritty</td>
-    <td></td>
+    <td>✅</td>
   </tr>
   <tr>
     <td>GNOME Terminal</td>
