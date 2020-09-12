@@ -15,7 +15,7 @@ arg_enum! {
 #[derive(StructOpt, Debug)]
 pub struct Cli {
     #[structopt(parse(from_os_str))]
-    pub solongo_path: PathBuf,
+    pub color_config_path: PathBuf,
     #[structopt(long, possible_values = &Format::variants(), case_insensitive = true)]
     pub format: Format,
 }

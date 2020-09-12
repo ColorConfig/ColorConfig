@@ -4,14 +4,14 @@ use std::io::prelude::*;
 
 use structopt::StructOpt;
 
-mod solongo;
+mod color_config;
 mod vscode_integrated_terminal;
 mod windows_terminal;
 mod alacritty;
 mod cli;
 mod filename;
 
-use solongo::Solongo;
+use color_config::ColorConfig;
 use vscode_integrated_terminal::VscodeIntegratedTerminal;
 use windows_terminal::WindowsTerminal;
 use alacritty::Alacritty;
@@ -22,7 +22,7 @@ use filename::Filename;
 fn main() {
     let args = Cli::from_args();
 
-    let filename = args.solongo_path
+    let filename = args.color_config_path
         .into_os_string()
         .into_string()
         .unwrap();
@@ -36,12 +36,12 @@ fn main() {
 
 
 
-    let solongo: Solongo = toml::from_str(&content)
+    let color_config: ColorConfig = toml::from_str(&content)
         .expect("toml error");
 
     match format {
         Format::VscodeIntegratedTerminal => {
-            let vscode = VscodeIntegratedTerminal::from(solongo);
+            let vscode = VscodeIntegratedTerminal::from(color_config);
             let vscode = serde_json::to_string_pretty(&vscode)
                 .unwrap();
             let filename = format!("{}.{}.{}",
@@ -52,7 +52,7 @@ fn main() {
             write_file(filename, vscode);
         }
         Format::WindowsTerminal => {
-            let winterm = WindowsTerminal::from(solongo);
+            let winterm = WindowsTerminal::from(color_config);
             let winterm = serde_json::to_string_pretty(&winterm)
                 .unwrap();
             let filename = format!("{}.{}.{}",
@@ -63,7 +63,7 @@ fn main() {
             write_file(filename, winterm);
         }
         Format::Alacritty => {
-            let alacritty = Alacritty::from(solongo);
+            let alacritty = Alacritty::from(color_config);
             let alacritty = serde_yaml::to_string(&alacritty)
                 .unwrap();
             let filename = format!("{}.{}.{}",

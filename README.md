@@ -1,4 +1,4 @@
-# solongo
+# ColorConfig
 
 Terminal colorscheme generator
 
@@ -8,7 +8,7 @@ Terminal colorscheme generator
 
 ```
 USAGE:
-    solongo <solongo-path> --format <format>
+    colorconfig <colorconfig-path> --format <format>
 
 FLAGS:
     -h, --help       Prints help information
@@ -18,7 +18,7 @@ OPTIONS:
         --format <format>     [possible values: WindowsTerminal, VscodeIntegratedTerminal]
 
 ARGS:
-    <solongo-path>
+    <colorconfig-path>
 ```
 
 ## Support

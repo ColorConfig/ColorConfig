@@ -5,7 +5,7 @@ extern crate serde_with;
 use serde::{Serialize, Deserialize};
 use serde_with::with_prefix;
 
-use crate::solongo::Solongo;
+use crate::color_config::ColorConfig;
 
 #[derive(Serialize, Deserialize)]
 pub struct VscodeIntegratedTerminal {
@@ -38,28 +38,28 @@ pub struct VscodeIntegratedTerminalTerminal {
     ansi_bright_white: String,
 }
 
-impl From<Solongo> for VscodeIntegratedTerminal {
-    fn from(solongo: Solongo) -> Self {
+impl From<ColorConfig> for VscodeIntegratedTerminal {
+    fn from(colorconfig: ColorConfig) -> Self {
         VscodeIntegratedTerminal {
             terminal: VscodeIntegratedTerminalTerminal {
-                background: solongo.colors.primary.background,
-                foreground: solongo.colors.primary.foreground,
-                ansi_black: solongo.colors.normal.black,
-                ansi_red: solongo.colors.normal.red,
-                ansi_green: solongo.colors.normal.green,
-                ansi_yellow: solongo.colors.normal.yellow,
-                ansi_blue: solongo.colors.normal.blue,
-                ansi_magenta: solongo.colors.normal.magenta,
-                ansi_cyan: solongo.colors.normal.cyan,
-                ansi_white: solongo.colors.normal.white,
-                ansi_bright_black: solongo.colors.bright.black,
-                ansi_bright_red: solongo.colors.bright.red,
-                ansi_bright_green: solongo.colors.bright.green,
-                ansi_bright_yellow: solongo.colors.bright.yellow,
-                ansi_bright_blue: solongo.colors.bright.blue,
-                ansi_bright_magenta: solongo.colors.bright.magenta,
-                ansi_bright_cyan: solongo.colors.bright.cyan,
-                ansi_bright_white: solongo.colors.bright.white,
+                background: colorconfig.colors.primary.background,
+                foreground: colorconfig.colors.primary.foreground,
+                ansi_black: colorconfig.colors.normal.black,
+                ansi_red: colorconfig.colors.normal.red,
+                ansi_green: colorconfig.colors.normal.green,
+                ansi_yellow: colorconfig.colors.normal.yellow,
+                ansi_blue: colorconfig.colors.normal.blue,
+                ansi_magenta: colorconfig.colors.normal.magenta,
+                ansi_cyan: colorconfig.colors.normal.cyan,
+                ansi_white: colorconfig.colors.normal.white,
+                ansi_bright_black: colorconfig.colors.bright.black,
+                ansi_bright_red: colorconfig.colors.bright.red,
+                ansi_bright_green: colorconfig.colors.bright.green,
+                ansi_bright_yellow: colorconfig.colors.bright.yellow,
+                ansi_bright_blue: colorconfig.colors.bright.blue,
+                ansi_bright_magenta: colorconfig.colors.bright.magenta,
+                ansi_bright_cyan: colorconfig.colors.bright.cyan,
+                ansi_bright_white: colorconfig.colors.bright.white,
             }
         }
     }

@@ -2,7 +2,7 @@ use std::convert::From;
 
 use serde::{Serialize, Deserialize};
 
-use crate::solongo::Solongo;
+use crate::color_config::ColorConfig;
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -28,28 +28,28 @@ pub struct WindowsTerminal {
     bright_white: String,
 }
 
-impl From<Solongo> for WindowsTerminal {
-    fn from(solongo: Solongo) -> Self {
+impl From<ColorConfig> for WindowsTerminal {
+    fn from(color_config: ColorConfig) -> Self {
         WindowsTerminal {
-            name: solongo.metadata.name,
-            background: solongo.colors.primary.background,
-            foreground: solongo.colors.primary.foreground,
-            black: solongo.colors.normal.black,
-            red: solongo.colors.normal.red,
-            green: solongo.colors.normal.green,
-            yellow: solongo.colors.normal.yellow,
-            blue: solongo.colors.normal.blue,
-            purple: solongo.colors.normal.magenta,
-            cyan: solongo.colors.normal.cyan,
-            white: solongo.colors.normal.white,
-            bright_black: solongo.colors.bright.black,
-            bright_red: solongo.colors.bright.red,
-            bright_green: solongo.colors.bright.green,
-            bright_yellow: solongo.colors.bright.yellow,
-            bright_blue: solongo.colors.bright.blue,
-            bright_purple: solongo.colors.bright.magenta,
-            bright_cyan: solongo.colors.bright.cyan,
-            bright_white: solongo.colors.bright.white,
+            name: color_config.metadata.name,
+            background: color_config.colors.primary.background,
+            foreground: color_config.colors.primary.foreground,
+            black: color_config.colors.normal.black,
+            red: color_config.colors.normal.red,
+            green: color_config.colors.normal.green,
+            yellow: color_config.colors.normal.yellow,
+            blue: color_config.colors.normal.blue,
+            purple: color_config.colors.normal.magenta,
+            cyan: color_config.colors.normal.cyan,
+            white: color_config.colors.normal.white,
+            bright_black: color_config.colors.bright.black,
+            bright_red: color_config.colors.bright.red,
+            bright_green: color_config.colors.bright.green,
+            bright_yellow: color_config.colors.bright.yellow,
+            bright_blue: color_config.colors.bright.blue,
+            bright_purple: color_config.colors.bright.magenta,
+            bright_cyan: color_config.colors.bright.cyan,
+            bright_white: color_config.colors.bright.white,
         }
     }
 }

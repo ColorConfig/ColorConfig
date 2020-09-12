@@ -2,7 +2,7 @@ use std::convert::From;
 
 use serde::{Serialize, Deserialize};
 
-use crate::solongo::Solongo;
+use crate::color_config::ColorConfig;
 
 #[derive(Serialize, Deserialize)]
 pub struct Alacritty {
@@ -34,33 +34,33 @@ pub struct AlacrittyAnsiColors {
     pub white: String,
 }
 
-impl From<Solongo> for Alacritty {
-    fn from(solongo: Solongo) -> Self {
+impl From<ColorConfig> for Alacritty {
+    fn from(color_config: ColorConfig) -> Self {
         Alacritty {
             colors: AlacrittyColors {
                 primary: AlacrittyPrimaryColors {
-                    background: solongo.colors.primary.background,
-                    foreground: solongo.colors.primary.foreground,
+                    background: color_config.colors.primary.background,
+                    foreground: color_config.colors.primary.foreground,
                 },
                 normal: AlacrittyAnsiColors {
-                    black: solongo.colors.normal.black,
-                    red: solongo.colors.normal.red,
-                    green: solongo.colors.normal.green,
-                    yellow: solongo.colors.normal.yellow,
-                    blue: solongo.colors.normal.blue,
-                    magenta: solongo.colors.normal.magenta,
-                    cyan: solongo.colors.normal.cyan,
-                    white: solongo.colors.normal.white,
+                    black: color_config.colors.normal.black,
+                    red: color_config.colors.normal.red,
+                    green: color_config.colors.normal.green,
+                    yellow: color_config.colors.normal.yellow,
+                    blue: color_config.colors.normal.blue,
+                    magenta: color_config.colors.normal.magenta,
+                    cyan: color_config.colors.normal.cyan,
+                    white: color_config.colors.normal.white,
                 },
                 bright: AlacrittyAnsiColors {
-                    black: solongo.colors.bright.black,
-                    red: solongo.colors.bright.red,
-                    green: solongo.colors.bright.green,
-                    yellow: solongo.colors.bright.yellow,
-                    blue: solongo.colors.bright.blue,
-                    magenta: solongo.colors.bright.magenta,
-                    cyan: solongo.colors.bright.cyan,
-                    white: solongo.colors.bright.white,
+                    black: color_config.colors.bright.black,
+                    red: color_config.colors.bright.red,
+                    green: color_config.colors.bright.green,
+                    yellow: color_config.colors.bright.yellow,
+                    blue: color_config.colors.bright.blue,
+                    magenta: color_config.colors.bright.magenta,
+                    cyan: color_config.colors.bright.cyan,
+                    white: color_config.colors.bright.white,
                 }
             }
         }

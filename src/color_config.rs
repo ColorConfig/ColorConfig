@@ -3,7 +3,7 @@ extern crate serde_with;
 use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize)]
-pub struct Solongo {
+pub struct ColorConfig {
     pub metadata: Metadata,
     pub colors: Colors,
 }

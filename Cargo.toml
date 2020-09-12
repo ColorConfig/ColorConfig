@@ -1,5 +1,5 @@
 [package]
-name = "solongo"
+name = "colorconfig"
 version = "0.1.0"
 authors = ["Yi Hyunjoon <yi.hyunjoon@gmail.com>"]
 edition = "2018"
