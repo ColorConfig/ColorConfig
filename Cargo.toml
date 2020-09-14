@@ -1,8 +1,17 @@
 [package]
 name = "colorconfig"
 version = "0.1.0"
-authors = ["Yi Hyunjoon <yi.hyunjoon@gmail.com>"]
+authors = [
+    "Yi Hyunjoon <yi.hyunjoon@gmail.com>",
+    "Jeong YunWon <jeong@youknowone.org>"
+]
 edition = "2018"
+license = "MIT"
+description = "Terminal colorscheme generator"
+readme = "README.md"
+homepage = "https://colorconfig.org"
+repository = "https://github.com/ColorConfig/ColorConfig"
+keywords = ["cli", "terminal", "color"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
