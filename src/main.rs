@@ -3,6 +3,7 @@ use std::fs::File;
 use std::io::prelude::*;
 
 use structopt::StructOpt;
+use anyhow::{Context, Result};
 
 mod color_config;
 mod vscode_integrated_terminal;
@@ -19,66 +20,57 @@ use cli::Cli;
 use cli::Format;
 use filename::Filename;
 
-fn main() {
+fn main() -> Result<()> {
     let args = Cli::from_args();
 
-    let filename = args.color_config_path
-        .into_os_string()
-        .into_string()
-        .unwrap();
+    let content = fs::read_to_string(&args.color_config_path)
+        .with_context(|| format!("could not read file `{}`", &args.color_config_path.display()))?;
 
-    let content = fs::read_to_string(&filename)
-        .expect("could not read file");
-
-    let filename = Filename::from(&filename[..]);
-
-    let format = &args.format;
-
-
+    let filename = Filename::from(&args.color_config_path);
 
     let color_config: ColorConfig = toml::from_str(&content)
-        .expect("toml error");
+        .with_context(|| format!("Failed to parse ColorConfig file `{}`", &content))?;
 
-    match format {
+    match &args.format {
         Format::VscodeIntegratedTerminal => {
             let vscode = VscodeIntegratedTerminal::from(color_config);
-            let vscode = serde_json::to_string_pretty(&vscode)
-                .unwrap();
+            let vscode = serde_json::to_string_pretty(&vscode)?;
             let filename = format!("{}.{}.{}",
                 filename.name,
                 "vscode",
                 "json"
             );
-            write_file(filename, vscode);
+            write_file(filename, vscode)?;
         }
         Format::WindowsTerminal => {
             let winterm = WindowsTerminal::from(color_config);
-            let winterm = serde_json::to_string_pretty(&winterm)
-                .unwrap();
+            let winterm = serde_json::to_string_pretty(&winterm)?;
             let filename = format!("{}.{}.{}",
                 filename.name,
                 "windows",
                 "json"
             );
-            write_file(filename, winterm);
+            write_file(filename, winterm)?;
         }
         Format::Alacritty => {
             let alacritty = Alacritty::from(color_config);
-            let alacritty = serde_yaml::to_string(&alacritty)
-                .unwrap();
+            let alacritty = serde_yaml::to_string(&alacritty)?;
             let filename = format!("{}.{}.{}",
                 filename.name,
                 "alacritty",
                 "yml"
             );
-            write_file(filename, alacritty);
+            write_file(filename, alacritty)?;
         }
     }
+
+    Ok(())
 }
 
-fn write_file(filename: String, content: String) {
-    let mut file = File::create(filename)
-        .expect("failed to create file");
+fn write_file(filename: String, content: String) -> Result<()> {
+    let mut file = File::create(filename)?;
     file.write_all(content.as_bytes())
-        .expect("failed to write file");
+        .context("Failed to write file.")?;
+
+    Ok(())
 }

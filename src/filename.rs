@@ -1,4 +1,5 @@
 use std::convert::From;
+use std::path::PathBuf;
 
 pub struct Filename {
     pub name: String,
@@ -6,8 +7,9 @@ pub struct Filename {
     pub extension: String,
 }
 
-impl From<&str> for Filename {
-    fn from(filename: &str) -> Filename {
+impl From<&PathBuf> for Filename {
+    fn from(filename: &PathBuf) -> Filename {
+        let filename = filename.to_str().unwrap();
         let filename: Vec<&str> = filename.split_terminator('.').collect();
         let name = String::from(filename[0]);
         let terminal = String::from(filename[1]);
