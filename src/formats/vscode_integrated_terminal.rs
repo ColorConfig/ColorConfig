@@ -1,7 +1,5 @@
 use std::convert::From;
 
-extern crate serde_with;
-
 use serde::{Deserialize, Serialize};
 use serde_with::with_prefix;
 
