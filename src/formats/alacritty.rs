@@ -1,8 +1,15 @@
+use crate::color_config::ColorConfig;
+use serde::{Deserialize, Serialize};
 use std::convert::From;
 
-use serde::{Deserialize, Serialize};
+impl super::target::TargetImpl for Alacritty {
+    const NAME: &'static str = "Alacritty";
+    const EXTENSION: &'static str = "yml";
 
-use crate::color_config::ColorConfig;
+    fn to_string(&self) -> anyhow::Result<String> {
+        Ok(serde_yaml::to_string(self)?)
+    }
+}
 
 #[derive(Serialize, Deserialize)]
 pub struct Alacritty {

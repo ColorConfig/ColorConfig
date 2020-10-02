@@ -1,9 +1,17 @@
 use std::convert::From;
 
+use crate::color_config::ColorConfig;
 use serde::{Deserialize, Serialize};
 use serde_with::with_prefix;
 
-use crate::color_config::ColorConfig;
+impl super::target::TargetImpl for VscodeIntegratedTerminal {
+    const NAME: &'static str = "VscodeIntegratedTerminal";
+    const EXTENSION: &'static str = "json";
+
+    fn to_string(&self) -> anyhow::Result<String> {
+        Ok(serde_json::to_string_pretty(self)?)
+    }
+}
 
 #[derive(Serialize, Deserialize)]
 pub struct VscodeIntegratedTerminal {
@@ -15,7 +23,7 @@ with_prefix!(terminal "terminal.");
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct VscodeIntegratedTerminalTerminal {
+struct VscodeIntegratedTerminalTerminal {
     background: String,
     foreground: String,
     ansi_black: String,

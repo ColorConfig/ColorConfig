@@ -1,8 +1,15 @@
+use crate::color_config::ColorConfig;
+use serde::{Deserialize, Serialize};
 use std::convert::From;
 
-use serde::{Deserialize, Serialize};
+impl super::target::TargetImpl for WindowsTerminal {
+    const NAME: &'static str = "WindowsTerminal";
+    const EXTENSION: &'static str = "json";
 
-use crate::color_config::ColorConfig;
+    fn to_string(&self) -> anyhow::Result<String> {
+        Ok(serde_json::to_string_pretty(self)?)
+    }
+}
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
