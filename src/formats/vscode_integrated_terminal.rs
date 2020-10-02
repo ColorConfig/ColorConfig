@@ -2,7 +2,7 @@ use std::convert::From;
 
 extern crate serde_with;
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use serde_with::with_prefix;
 
 use crate::color_config::ColorConfig;
@@ -10,7 +10,7 @@ use crate::color_config::ColorConfig;
 #[derive(Serialize, Deserialize)]
 pub struct VscodeIntegratedTerminal {
     #[serde(flatten, with = "terminal")]
-    terminal: VscodeIntegratedTerminalTerminal
+    terminal: VscodeIntegratedTerminalTerminal,
 }
 
 with_prefix!(terminal "terminal.");
@@ -60,7 +60,7 @@ impl From<ColorConfig> for VscodeIntegratedTerminal {
                 ansi_bright_magenta: colorconfig.colors.bright.magenta,
                 ansi_bright_cyan: colorconfig.colors.bright.cyan,
                 ansi_bright_white: colorconfig.colors.bright.white,
-            }
+            },
         }
     }
 }

@@ -18,7 +18,7 @@ impl From<&PathBuf> for Filename {
         Filename {
             name,
             terminal,
-            extension
+            extension,
         }
     }
 }
