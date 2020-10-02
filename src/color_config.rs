@@ -1,6 +1,6 @@
 extern crate serde_with;
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct ColorConfig {

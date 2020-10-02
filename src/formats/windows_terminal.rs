@@ -1,6 +1,6 @@
 use std::convert::From;
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 use crate::color_config::ColorConfig;
 

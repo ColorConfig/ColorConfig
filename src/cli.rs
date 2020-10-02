@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 
-use structopt::StructOpt;
 use structopt::clap::arg_enum;
+use structopt::StructOpt;
 
 arg_enum! {
     #[derive(Debug)]

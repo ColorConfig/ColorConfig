@@ -1,12 +1,12 @@
 use std::convert::From;
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 use crate::color_config::ColorConfig;
 
 #[derive(Serialize, Deserialize)]
 pub struct Alacritty {
-    colors: AlacrittyColors
+    colors: AlacrittyColors,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -61,8 +61,8 @@ impl From<ColorConfig> for Alacritty {
                     magenta: color_config.colors.bright.magenta,
                     cyan: color_config.colors.bright.cyan,
                     white: color_config.colors.bright.white,
-                }
-            }
+                },
+            },
         }
     }
 }
