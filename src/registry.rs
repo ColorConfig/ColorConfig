@@ -6,25 +6,25 @@ use thiserror::Error;
 
 pub type FromColorConfig = fn(ColorConfig) -> Box<dyn Target>;
 
-pub struct TargetRegstry {
+pub struct TargetRegistry {
     targets: RwLock<HashMap<String, FromColorConfig>>,
 }
 
-impl Default for TargetRegstry {
+impl Default for TargetRegistry {
     fn default() -> Self {
         Self::new()
     }
 }
 
 pub trait TargetRegsitryItem {
-    fn regstry_item() -> FromColorConfig;
+    fn registry_item() -> FromColorConfig;
 }
 
 impl<T> TargetRegsitryItem for T
 where
     T: Target + From<ColorConfig>,
 {
-    fn regstry_item() -> FromColorConfig {
+    fn registry_item() -> FromColorConfig {
         |color| -> Box<dyn Target> { Box::new(Self::from(color)) }
     }
 }
@@ -37,7 +37,7 @@ pub enum RegisterError {
     NotLockable,
 }
 
-impl TargetRegstry {
+impl TargetRegistry {
     pub fn new() -> Self {
         Self {
             targets: RwLock::new(HashMap::new()),
@@ -66,7 +66,7 @@ impl TargetRegstry {
         if targets.contains_key(name) {
             return Err(RegisterError::Duplicated(name.to_owned()));
         }
-        let inserted = targets.insert(name.to_owned(), I::regstry_item());
+        let inserted = targets.insert(name.to_owned(), I::registry_item());
         debug_assert!(inserted.is_none());
         Ok(())
     }
