@@ -8,3 +8,9 @@ impl super::interface::TargetImpl for ColorConfig {
         Ok(toml::to_string_pretty(self)?)
     }
 }
+
+impl super::interface::Source for ColorConfig {
+    fn from_content(content: &str) -> anyhow::Result<Self> {
+        Ok(toml::from_str(content)?)
+    }
+}
