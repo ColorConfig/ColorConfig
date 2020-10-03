@@ -8,14 +8,17 @@ pub trait TargetImpl: Sized {
     fn to_string_pretty(&self) -> anyhow::Result<String>;
 }
 
-pub trait Target {
+pub trait Target
+where
+    Self: 'static,
+{
     fn output_path(&self, name: &str) -> PathBuf;
     fn write_file(&self, name: &str) -> anyhow::Result<()>;
 }
 
 impl<T> Target for T
 where
-    T: TargetImpl,
+    T: TargetImpl + 'static,
 {
     fn output_path(&self, name: &str) -> PathBuf {
         let mut path = PathBuf::new();
