@@ -45,34 +45,28 @@ impl TargetRegstry {
     }
 
     pub fn with_bulitins() -> Self {
-        use crate::cli::Format;
         let registry = Self::new();
+        registry.register::<ColorConfig>().unwrap();
+        registry.register::<crate::target::Alacritty>().unwrap();
         registry
-            .register::<ColorConfig>(ColorConfig::NAME.to_owned())
+            .register::<crate::target::WindowsTerminal>()
             .unwrap();
         registry
-            .register::<crate::target::Alacritty>(Format::Alacritty.to_string())
-            .unwrap();
-        registry
-            .register::<crate::target::WindowsTerminal>(Format::WindowsTerminal.to_string())
-            .unwrap();
-        registry
-            .register::<crate::target::VscodeIntegratedTerminal>(
-                Format::VscodeIntegratedTerminal.to_string(),
-            )
+            .register::<crate::target::VscodeIntegratedTerminal>()
             .unwrap();
         registry
     }
 
-    pub fn register<I: TargetRegsitryItem>(&self, name: String) -> Result<(), RegisterError> {
+    pub fn register<I: TargetRegsitryItem + TargetImpl>(&self) -> Result<(), RegisterError> {
+        let name = I::NAME;
         let mut targets = self
             .targets
             .write()
             .map_err(|_| RegisterError::NotLockable)?;
-        if targets.contains_key(&name) {
-            return Err(RegisterError::Duplicated(name));
+        if targets.contains_key(name) {
+            return Err(RegisterError::Duplicated(name.to_owned()));
         }
-        let inserted = targets.insert(name, I::regstry_item());
+        let inserted = targets.insert(name.to_owned(), I::regstry_item());
         debug_assert!(inserted.is_none());
         Ok(())
     }
