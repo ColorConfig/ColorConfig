@@ -2,11 +2,11 @@ use crate::color_config::ColorConfig;
 use serde::{Deserialize, Serialize};
 use std::convert::From;
 
-impl super::target::TargetImpl for Alacritty {
+impl super::interface::TargetImpl for Alacritty {
     const NAME: &'static str = "Alacritty";
     const EXTENSION: &'static str = "yml";
 
-    fn to_string(&self) -> anyhow::Result<String> {
+    fn to_string_pretty(&self) -> anyhow::Result<String> {
         Ok(serde_yaml::to_string(self)?)
     }
 }

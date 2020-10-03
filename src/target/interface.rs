@@ -5,7 +5,7 @@ use std::path::PathBuf;
 pub trait TargetImpl: Sized {
     const NAME: &'static str;
     const EXTENSION: &'static str;
-    fn to_string(&self) -> anyhow::Result<String>;
+    fn to_string_pretty(&self) -> anyhow::Result<String>;
 }
 
 pub trait Target {
@@ -26,7 +26,7 @@ where
     }
     fn write_file(&self, name: &str) -> anyhow::Result<()> {
         let path = self.output_path(name);
-        let content = self.to_string()?;
+        let content = self.to_string_pretty()?;
         let mut file = std::fs::File::create(path)?;
         file.write_all(content.as_bytes())
             .context("Failed to write file.")?;

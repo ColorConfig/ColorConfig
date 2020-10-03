@@ -6,13 +6,13 @@ pub use cli::Cli;
 use cli::Format;
 
 mod color_config;
-mod formats;
+mod target;
 
 use color_config::ColorConfig;
-use formats::alacritty::Alacritty;
-use formats::target::Target;
-use formats::vscode_integrated_terminal::VscodeIntegratedTerminal;
-use formats::windows_terminal::WindowsTerminal;
+use target::Alacritty;
+use target::Target;
+use target::VscodeIntegratedTerminal;
+use target::WindowsTerminal;
 
 pub fn run(args: Cli) -> Result<()> {
     let content = fs::read_to_string(&args.color_config_path).with_context(|| {
