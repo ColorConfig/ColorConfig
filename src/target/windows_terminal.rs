@@ -2,11 +2,11 @@ use crate::color_config::ColorConfig;
 use serde::{Deserialize, Serialize};
 use std::convert::From;
 
-impl super::target::TargetImpl for WindowsTerminal {
+impl super::interface::TargetImpl for WindowsTerminal {
     const NAME: &'static str = "WindowsTerminal";
     const EXTENSION: &'static str = "json";
 
-    fn to_string(&self) -> anyhow::Result<String> {
+    fn to_string_pretty(&self) -> anyhow::Result<String> {
         Ok(serde_json::to_string_pretty(self)?)
     }
 }

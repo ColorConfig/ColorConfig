@@ -6,9 +6,10 @@ use structopt::StructOpt;
 arg_enum! {
     #[derive(Debug)]
     pub enum Format {
-        WindowsTerminal,
-        VscodeIntegratedTerminal,
+        ColorConfig,
         Alacritty,
+        VscodeIntegratedTerminal,
+        WindowsTerminal,
     }
 }
 
