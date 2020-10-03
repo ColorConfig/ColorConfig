@@ -6,4 +6,4 @@ mod registry;
 pub mod target;
 
 pub use color_config::ColorConfig;
-pub use registry::TargetRegstry;
+pub use registry::TargetRegistry;

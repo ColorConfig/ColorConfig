@@ -1,5 +1,5 @@
 use anyhow::Result;
-use colorconfig::{target::Source, Cli, ColorConfig, TargetRegstry};
+use colorconfig::{target::Source, Cli, ColorConfig, TargetRegistry};
 use structopt::StructOpt;
 
 fn main() {
@@ -11,7 +11,7 @@ fn main() {
 }
 
 pub fn run(args: Cli) -> Result<()> {
-    let registry = TargetRegstry::with_bulitins();
+    let registry = TargetRegistry::with_bulitins();
     let color_config = ColorConfig::from_path(&args.color_config_path)?;
     let from_config = registry
         .get_from_config(&args.format.to_string())
