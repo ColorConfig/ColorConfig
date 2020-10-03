@@ -1,5 +1,5 @@
 use crate::color_config::ColorConfig;
-use crate::target::Target;
+use crate::target::{Target, TargetImpl};
 use std::collections::HashMap;
 use std::sync::RwLock;
 use thiserror::Error;
@@ -47,6 +47,9 @@ impl TargetRegstry {
     pub fn with_bulitins() -> Self {
         use crate::cli::Format;
         let registry = Self::new();
+        registry
+            .register::<ColorConfig>(ColorConfig::NAME.to_owned())
+            .unwrap();
         registry
             .register::<crate::target::Alacritty>(Format::Alacritty.to_string())
             .unwrap();
