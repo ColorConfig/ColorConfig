@@ -27,7 +27,7 @@ pub fn run(args: Cli) -> Result<()> {
         .expect("tool must guarantee this unless we have plugin system");
     let target = from_config(color_config);
     let stem = args.color_config_path.file_stem().unwrap();
-    target.write_file(stem.to_str().unwrap())?;
+    target.write_to_target_path(stem.to_str().unwrap(), false)?;
 
     Ok(())
 }
